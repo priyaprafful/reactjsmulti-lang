@@ -229,3 +229,27 @@ section {
   padding: 5px 16px;
   width: 19px;
 }
+error-container {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 230px;
+  margin-bottom: 449px;
+}
+.error-container h3 {
+  text-align: center;
+  font-size: 60px;
+}
+.error-container h2,
+.error-container h6 {
+  font-size: 20px;
+  text-align: center;
+}
+.back-btn {
+  text-align: center;
+}
+.error-container button {
+  padding: 20px 30px;
+  margin-top: 20px;
+  border-radius: 20px;
+  font-size: 20px;
+}

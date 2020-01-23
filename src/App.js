@@ -11,6 +11,7 @@ import Homepage from './pages/Homepage';
 import Page from './pages/Page';
 import Preview from './pages/Preview';
 import {apiEndpoint} from './prismic-config'
+import NotFound from './pages/NotFound';
 
 
 
@@ -30,10 +31,11 @@ const App = () => {
       <Switch>
         <Route exact path='/preview' component={Preview} />
           <Route exact path="/"> 
-            <Redirect to="/en-gb" />
+            <Redirect to="/fr-fr" />
           </Route>
           <Route exact path='/:lang' component={Homepage} />
           <Route exact path='/:lang/:uid' component={Page} />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     </Fragment>

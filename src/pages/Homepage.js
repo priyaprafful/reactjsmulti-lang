@@ -3,9 +3,11 @@ import { client } from '../prismic-config';
 import SliceZone from '../components/sliceZone';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
+import NotFound from './NotFound';
 
 const Homepage = ({match}) => {
   const [prismicData, setPrismicData] = useState(null);
+  const [notFound, toggleNotFound] = useState(false);
   
   const  lang  = match.params.lang;
   
@@ -21,6 +23,7 @@ const Homepage = ({match}) => {
         }
       } catch (error) {
           console.error(error);
+          toggleNotFound(true);
         }
     } 
   
@@ -42,9 +45,10 @@ const Homepage = ({match}) => {
        
        
     );
-  } else {
-      return null;
+  } else if (notFound) {
+      return <NotFound />;
     }
+    return null
 }
   
   
