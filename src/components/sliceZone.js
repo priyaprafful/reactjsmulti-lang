@@ -1,5 +1,4 @@
 import React from 'react';
-//import { CalltoAction,FullWidthImage } from './slices';
 import CalltoAction from './slices/CalltoAction';
 import FullWidthImage from './slices/FullWidthImage';
 import IconInfoSection from './slices/IconInfoSection';
