@@ -12,7 +12,7 @@ const HighLightSection = ({ slice }) => {
           media='(max-width: 500px)'/>
           <source srcSet={slice.primary.highlight_image.Tabletview.url} 
           alt={slice.primary.highlight_image.Tabletview.alt}
-          media='(max-width: 500px)'/>
+          media='(max-width: 1097px)'/>
           <img src={slice.primary.highlight_image.url} alt={slice.primary.highlight_image.alt} />
        </picture>
       </div>
