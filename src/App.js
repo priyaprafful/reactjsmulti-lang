@@ -7,19 +7,19 @@ import {
   Redirect
 } from 'react-router-dom';
 
-import Homepage from './pages/Homepage';
-import Page from './pages/Page';
-import Preview from './pages/Preview';
+import Homepage from './prismic_pages/Homepage';
+import Page from './prismic_pages/Page';
+import Preview from './preview/Preview';
 import {apiEndpoint} from './prismic-config'
-import NotFound from './pages/NotFound';
+import NotFound from './error_page/NotFound';
+import Error from './error_page/Error';
 
 
 
 const App = () => {
   const repoNameArray = /([^/]+)\.cdn.prismic\.io\/api/.exec(apiEndpoint);
-  console.log(repoNameArray)
   const repoName = repoNameArray[1];
-  console.log(repoName)
+
   
   
   return (
@@ -31,11 +31,12 @@ const App = () => {
       <Switch>
         <Route exact path='/preview' component={Preview} />
           <Route exact path="/"> 
-            <Redirect to="/fr-fr" />
+            <Redirect to="/en-gb" />
           </Route>
           <Route exact path='/:lang' component={Homepage} />
           <Route exact path='/:lang/:uid' component={Page} />
           <Route component={NotFound} />
+          <Route component = {Error} />
         </Switch>
       </BrowserRouter>
     </Fragment>
