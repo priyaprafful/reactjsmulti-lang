@@ -24,7 +24,7 @@ const Page = ({match}) => {
       try {
         const pageDoc = await client.getByUID('page', uid, {lang} );
         if (pageDoc) {
-          setPrismicDoc(pageDoc.data);
+          setPrismicDoc(pageDoc);
         } else {
           docError(true);
         }
@@ -37,10 +37,11 @@ const Page = ({match}) => {
   }, [uid,lang]);
   //Check if Prismic doc is received
   if (prismicDoc) {
-    const data = prismicDoc.page_content;
+    
+    const data = prismicDoc.data.page_content;
     return (
       <div>
-        <Header lang={lang} uid ={uid}/>
+        <Header lang={lang} altLanguages = {prismicDoc.alternate_languages}/>
         <div className = "container">
           <SliceZone sliceZone={data} />
         </div>

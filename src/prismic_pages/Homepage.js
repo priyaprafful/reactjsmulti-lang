@@ -6,9 +6,9 @@ import Footer from '../components/layouts/Footer';
 import Error_404 from '../error_pages/Error_404';
 import ErrorGeneric from '../error_pages/ErrorGeneric';
 
-//Home page component for home page, parameter passed - language.
+//Home page component 
 const Homepage = ({match}) => {
-  const [prismicData, setPrismicData] = useState(null);
+  const [prismicDoc, setPrismicDoc] = useState(null);
 
   //Error page handling variables
   const [pageNotFound, docError] = useState(false);
@@ -23,7 +23,7 @@ const Homepage = ({match}) => {
       try {
         const homeDoc = await client.getSingle( "homepage", {lang});
         if (homeDoc) {
-          setPrismicData(homeDoc.data);
+          setPrismicDoc(homeDoc);
         } else {
           console.warn(' Home page document was not found. Make sure it exists in your Prismic repository');
           docError(true);
@@ -37,11 +37,12 @@ const Homepage = ({match}) => {
   }, [lang]);
 
   //Check if Prismic doc is received
-  if (prismicData) {
-    const data = prismicData.page_content;
+  if (prismicDoc) {
+    const data = prismicDoc.data.page_content;
+    
     return (
       <div>
-        <Header lang={lang} />
+        <Header lang={lang} altLanguages={prismicDoc.alternate_languages}/>
         <div className = "container">
           <SliceZone sliceZone={ data } />
         </div>
