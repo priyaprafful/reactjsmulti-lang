@@ -3,59 +3,57 @@ import { client } from '../prismic-config';
 import SliceZone from '../components/sliceZone';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
-import NotFound from '../error_page/NotFound';
-import Error from '../error_page/Error';
+import Error_404 from '../error_pages/Error_404';
+import ErrorGeneric from '../error_pages/ErrorGeneric';
 
+//Home page component for home page, parameter passed - language.
 const Homepage = ({match}) => {
   const [prismicData, setPrismicData] = useState(null);
-  const [notFound, toggleNotFound] = useState(false);
-  const [errorFound, errorOccured] = useState(false)
+
+  //Error page handling variables
+  const [pageNotFound, docError] = useState(false);
+  const [errorFound, genericError] = useState(false)
   
+  //params section
   const  lang  = match.params.lang;
-  
-  // Get the homepage documents from Prismic
+
+  //Get the homepage documents from Prismic
   useEffect(() => {
     const fetchPrismicData = async () => {
       try {
-        const homeDoc = await client.getSingle('homepage', {lang});
+        const homeDoc = await client.getSingle( "homepage", {lang});
         if (homeDoc) {
           setPrismicData(homeDoc.data);
         } else {
           console.warn(' Home page document was not found. Make sure it exists in your Prismic repository');
-          toggleNotFound(true);
+          docError(true);
         }
       } catch (error) {
           console.error(error);
-          errorOccured(true);
-        }
+          genericError(true);
+      }
     } 
-  
     fetchPrismicData();
   }, [lang]);
 
+  //Check if Prismic doc is received
   if (prismicData) {
     const data = prismicData.page_content;
-    
     return (
       <div>
-        <Header lang={lang} uid={" "}/>
-      
+        <Header lang={lang} />
         <div className = "container">
           <SliceZone sliceZone={ data } />
         </div>
         <Footer/>
-        </div>
-       
-       
+      </div>
     );
   } else if (errorFound) {
-      return <Error/>;
-    }
-    else if (notFound) {
-    return <NotFound/>
-}
+      return <ErrorGeneric />;
+  } else if (pageNotFound) {
+      return <Error_404/>
+  }   
   return null
 }
-  
   
 export default Homepage;

@@ -3,19 +3,20 @@ import { client } from '../prismic-config';
 import SliceZone from '../components/sliceZone';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
-import NotFound from '../error_page/NotFound';
-import Error from '../error_page/Error';
+import Error_404 from '../error_pages/Error_404';
+import ErrorGeneric  from '../error_pages/ErrorGeneric';
 
-
-
+//Page component for all pages under homepage tree, parameters passed - language and uid of page
 const Page = ({match}) => {
   const [prismicDoc, setPrismicDoc] = useState(null);
-  const [notFound, toggleNotFound] = useState(false);
-  const [errorFound, errorOccured] = useState(false)
-  
-  
-  const lang  = match.params.lang
-  const uid = match.params.uid
+
+  //Error page handling variables
+  const [pageNotFound, docError] = useState(false);
+  const [errorFound, genericError] = useState(false)
+
+  //Params section
+  const lang  = match.params.lang;
+  const uid = match.params.uid;
 
   // Get the page documents from Prismic
   useEffect(() => {
@@ -25,20 +26,18 @@ const Page = ({match}) => {
         if (pageDoc) {
           setPrismicDoc(pageDoc.data);
         } else {
-          toggleNotFound(true);
+          docError(true);
         }
-        } catch (error) {
+      } catch (error) {
           console.error(error);
-          errorOccured(true);
-        }
+          genericError(true);
+      }
     }
-  
-      fetchPrismicData();
+    fetchPrismicData();
   }, [uid,lang]);
-
+  //Check if Prismic doc is received
   if (prismicDoc) {
     const data = prismicDoc.page_content;
-    
     return (
       <div>
         <Header lang={lang} uid ={uid}/>
@@ -48,14 +47,12 @@ const Page = ({match}) => {
         <Footer/>
       </div>
     );
-  } else if (notFound) {
-      return <NotFound/>
+  } else if (pageNotFound) {
+      return <Error_404/>
+  } else if (errorFound) {
+    return <ErrorGeneric />
   }
-  else if (errorFound) {
-    return <Error/>
-  }
-   return null;
+  return null;
 }
-  
   
 export default Page;
