@@ -3,7 +3,7 @@ import { client,linkResolver } from '../prismic-config';
 import { RichText , Link} from 'prismic-reactjs';
 
 //Menulinks component for all menu links in header section 
-const MenuLinks = ({lang, uid}) => {
+const MenuLinks = ({lang, altLanguages}) => {
   const [menuData, setMenuData] = useState(null);
 
   // Get the menu documents from Prismic
@@ -21,11 +21,9 @@ const MenuLinks = ({lang, uid}) => {
       }
     }
     fetchPrismicData();
-  }, [lang,uid]);
+  }, [lang,altLanguages]);
 
-  // function createAltLink(altLang){
-  //   return "/"+altLang+"/"+uid;
-  // }
+
   if (menuData) {
     return (
       <nav className="main-nav">
@@ -41,16 +39,17 @@ const MenuLinks = ({lang, uid}) => {
               )
             })
           }
-          {menuData.alternate_languages.map((altLang,index)=>{
+          {/* alternate lanaguages links generation  */}
+          {altLanguages.map((altLang,index)=>{
             return (
-              <li  key = {index}>
+              <li key = {index}>
                 <a href = {linkResolver(altLang)}>
                   <p className={"flag-icon flag-icon-" + altLang.lang.slice(-2)}></p>
                 </a> 
               </li>
-              )
-            })
-          }
+            )
+          })
+        }
         </ul>
       </nav>
     );
