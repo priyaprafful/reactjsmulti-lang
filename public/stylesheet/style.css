@@ -271,6 +271,12 @@ section {
   border-radius: 20px;
   font-size: 20px;
 }
+.error-container nav ul {
+  list-style: circle;
+}
+.error-container nav ul li {
+  margin-bottom: 20px;
+}
 
 
 /**
