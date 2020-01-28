@@ -3,18 +3,13 @@ import { client } from '../prismic-config';
 import SliceZone from '../components/sliceZone';
 import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
-import Error_404 from '../error_pages/Error_404';
-import ErrorGeneric from '../error_pages/ErrorGeneric';
+import ErrorHandler from '../error_page/ErrorHandler';
 
 //Home page component 
-const Homepage = ({match}) => {
+const HomePage = ({match}) => {
   const [prismicDoc, setPrismicDoc] = useState(null);
-
-  //Error page handling variables
-  const [pageNotFound, docError] = useState(false);
-  const [errorFound, genericError] = useState(false)
+  const [errorState, setErrorState] = useState(false)
   
-  //params section
   const  lang  = match.params.lang;
 
   //Get the homepage documents from Prismic
@@ -26,20 +21,19 @@ const Homepage = ({match}) => {
           setPrismicDoc(homeDoc);
         } else {
           console.warn(' Home page document was not found. Make sure it exists in your Prismic repository');
-          docError(true);
+          setErrorState('pageNotFound');
         }
       } catch (error) {
-          console.error(error);
-          genericError(true);
+        console.error(error);
+        setErrorState('genericError');
       }
     } 
     fetchPrismicData();
   }, [lang]);
 
-  //Check if Prismic doc is received
+  // Return the page if a document was retrieved from Prismic
   if (prismicDoc) {
     const data = prismicDoc.data.page_content;
-    
     return (
       <div>
         <Header lang={lang} altLanguages={prismicDoc.alternate_languages}/>
@@ -49,12 +43,10 @@ const Homepage = ({match}) => {
         <Footer/>
       </div>
     );
-  } else if (errorFound) {
-      return <ErrorGeneric />;
-  } else if (pageNotFound) {
-      return <Error_404/>
-  }   
+  } else if (errorState) {
+    return <ErrorHandler errorState={errorState} />
+  }
   return null
 }
   
-export default Homepage;
+export default HomePage;
