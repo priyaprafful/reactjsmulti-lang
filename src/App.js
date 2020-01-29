@@ -6,7 +6,7 @@ import {
   Switch,
   Redirect
 } from 'react-router-dom';
-import HomePage from './prismic_pages/HomePage';
+import Homepage from './prismic_pages/Homepage';
 import Page from './prismic_pages/Page';
 import Preview from './preview/Preview';
 import {apiEndpoint} from './prismic-config'
@@ -27,7 +27,7 @@ const App = () => {
             <Route exact path="/"> 
               <Redirect to="/en-gb" />
             </Route>
-            <Route exact path='/:lang' component={HomePage} />
+            <Route exact path='/:lang' component={Homepage} />
             <Route exact path='/:lang/:uid' component={Page} />
           </Switch>
       </BrowserRouter>

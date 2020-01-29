@@ -5,13 +5,12 @@ import Header from '../components/layouts/Header';
 import Footer from '../components/layouts/Footer';
 import ErrorHandler from '../error_page/ErrorHandler';
 
-//Home page component 
-const HomePage = ({match}) => {
+//Home page component
+const Homepage = ({match}) => {
   const [prismicDoc, setPrismicDoc] = useState(null);
   const [errorState, setErrorState] = useState(false)
   
   const  lang  = match.params.lang;
-
   //Get the homepage documents from Prismic
   useEffect(() => {
     const fetchPrismicData = async () => {
@@ -49,4 +48,4 @@ const HomePage = ({match}) => {
   return null
 }
   
-export default HomePage;
+export default Homepage;
