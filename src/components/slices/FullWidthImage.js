@@ -8,12 +8,18 @@ const FullWidthImage = ({ slice }) => {
   return (
     <section className="image-container">
       <div className={backgroundImage}>
-        <img className="back-img" src={slice.primary.background_image.url} 
-        alt={slice.primary.background_image.alt} />
+        <img 
+          className="back-img" 
+          src={slice.primary.background_image.url} 
+          alt={slice.primary.background_image.alt} 
+        />
       </div>
+
       <div className="main-image">
-        <img src={slice.primary.layout_image.url} 
-        alt = {slice.primary.layout_image.alt} />
+        <img 
+          src={slice.primary.layout_image.url} 
+          alt = {slice.primary.layout_image.alt} 
+        />
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ import {
 import Homepage from './prismic_pages/Homepage';
 import Page from './prismic_pages/Page';
 import Preview from './preview/Preview';
-import {apiEndpoint} from './prismic-config'
+import {apiEndpoint} from './prismic-config';
 
 //Root component of application
 const App = () => {
